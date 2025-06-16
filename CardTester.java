@@ -274,22 +274,22 @@ public class CardTester {
 
 		//- mismatching object on both instance vars (returns false)
 		System.out.println("Testing both instance variables don't match:");
-		System.out.println("Are card " + original + " and card " + test + " the same? " + original.equals(test));
+		System.out.println("Are card " + original + " and card " + test + " the same? " + (original.equals(test)));
 
 		//- mismatching object on value only (returns false)
 		test.setAll(5, Card.HEART);
 		System.out.println("Testing only values don't match:");
-		System.out.println("Are card " + original + " and card " + test + " the same? " + original.equals(test));
-		
+		System.out.println("Are card " + original + " and card " + test + " the same? " + (original.equals(test)));
+
 		//- mismatching object on suit only (returns false)
 		test.setAll(8, Card.DIAMOND);
 		System.out.println("Testing only suits don't match:");
-		System.out.println("Are card " + original + " and card " + test + " the same? " + original.equals(test));
-		
+		System.out.println("Are card " + original + " and card " + test + " the same? " + (original.equals(test)));
+
 		//- matching object, both instance vars the same (returns true
 		test.setAll(8, Card.HEART);
 		System.out.println("Testing both instance variables match:");
-		System.out.println("Are card " + original + " and card " + test + " the same? " + original.equals(test));
+		System.out.println("Are card " + original + " and card " + test + " the same? " + (original.equals(test)));
 	}
 
 }

@@ -49,15 +49,24 @@
 public class Card {
 
 	/*** CONSTANT VARIABLES ***/
-
+	static char HEART = '♥';
+	static char DIAMOND = '♦';
+	static char CLUB = '♣';
+	static char SPADE = '♠';
+	static int DEFAULT_VALUE = 1;
+	static char DEFAULT_SUIT = HEART;
 
 	/*** INSTANCE VARIABLES ***/
-
+	private int value;
+	private char suit;
 
 	/*** CONSTRUCTOR METHODS ***/
 	/**
 	 * Default constructor, builds default card object as: A ♥
 	 */
+	public Card() {
+		setAll(DEFAULT_VALUE, DEFAULT_SUIT);
+	}
 
 
 	/**
@@ -69,6 +78,9 @@ public class Card {
 	 * @param suit  one of four suit values (unicode value for heart, diamond,
 	 *              spade, or club)
 	 */
+	public Card(int value, char suit) {
+		setAll(value, suit);
+	}
 
 
 	/**
@@ -77,6 +89,9 @@ public class Card {
 	 *
 	 * @param original Card object to be copied
 	 */
+	public Card(Card original) {
+		setAll(original.getValue(), original.getSuit());
+	}
 
 
 	/*** MUTATOR METHODS (SETTERS) ***/
@@ -90,7 +105,13 @@ public class Card {
 	 *
 	 * @return true if card value is between 1 and 13 (inclusive), false otherwise
 	 */
-
+	public boolean setValue(int value) {
+		if (value < 1 || value > 13) {
+			return false;
+		}
+		this.value = value;
+		return true;
+	}
 
 	/**
 	 * Sets suit for card only if valid, otherwise will not change instance
@@ -103,7 +124,13 @@ public class Card {
 	 * @return true if card suit is unicode value for heart, diamond, club or spade.
 	 *         false otherwise
 	 */
-
+	public boolean setSuit(char suit) {
+		if  (suit == HEART || suit == DIAMOND || suit == CLUB || suit == SPADE) {
+			this.suit = suit;
+			return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Sets suit and value for card only if valid, returns boolean representing
@@ -116,7 +143,14 @@ public class Card {
 	 *
 	 * @return true if card suit AND value are valid, false otherwise
 	 */
-
+	public boolean setAll(int value, char suit) {
+		if ((value >= 1 && value <= 13) && (suit == HEART || suit == DIAMOND || suit == CLUB || suit == SPADE)) {
+			this.suit = suit;
+			this.value = value;
+			return true;
+		}
+		return false;
+	}
 
 	/*** ACCESSOR METHODS (GETTERS) ***/
 	/**
@@ -124,6 +158,9 @@ public class Card {
 	 *
 	 * @return suit as unicode character for heart, spade, diamond, or club
 	 */
+	public char getSuit() {
+		return this.suit;
+	}
 
 
 	/**
@@ -132,7 +169,9 @@ public class Card {
 	 * @return value as raw integer 1-13 (not what player sees as A, 2-10, J, Q, K;
 	 *         see {@link #getPrintValue()})
 	 */
-
+	public int getValue() {
+		return this.value;
+	}
 
 	/**
 	 * Access value of card as seen by user (A, 2-10, J, Q, K) that would be printed
@@ -141,7 +180,15 @@ public class Card {
 	 * @return value as String user sees on card (A, 2-10, J, Q, K), not numerical
 	 *         value 1-13 (see {@link #getValue()})
 	 */
-
+	public String getPrintValue () {
+        return switch (this.value) {
+            case 1 -> "A";
+            case 11 -> "J";
+            case 12 -> "Q";
+            case 13 -> "K";
+            default -> String.format("%d", this.value);
+        };
+	}
 
 	/**
 	 * Access ASCII art version of card data, each line separated by newline
@@ -149,6 +196,15 @@ public class Card {
 	 *
 	 * @return String containing ASCII art with card suit and card print value
 	 */
+	public String getPrintCard () {
+		String card = "";
+		card += "------- \n";
+		card += "|" + this.suit + "   " + this.suit + "| \n";
+		card += String.format("| %2s  | \n", this.getPrintValue());
+		card += "|" + this.suit + "   " + this.suit + "| \n";
+		card += "------- ";
+		return card;
+	}
 
 
 	/*** OTHER REQUIRED METHODS ***/
@@ -158,6 +214,9 @@ public class Card {
 	 * 
 	 * @return String containing (print) value and suit, separated by a space
 	 */
+	public String toString() {
+		return String.format("%s %c", this.getPrintValue(), this.suit);
+	}
 
 
 	/**
@@ -169,12 +228,24 @@ public class Card {
 	 * @return boolean representing equality between both objects, all data is
 	 *         exactly equal to each other
 	 */
+	public boolean equals(Card other) {
+		if (other == null) {
+			return false;
+		}
+		else {
+			return this.value == other.value
+				&& this.suit == other.suit;
+		}
+    }
 
 
 	/*** EXTRA METHODS ***/
 	/**
 	 * Prints card ASCII art to console (see {@link #getPrintCard()})
 	 */
+	public void printCard () {
+		System.out.print(this.getPrintCard());
+	}
 
 
 
