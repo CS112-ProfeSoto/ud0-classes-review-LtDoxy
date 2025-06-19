@@ -12,8 +12,8 @@
  * constant variables will be used throughout code for consistency
  * - Whenever value/suit is changed, it must be within the valid values
  *
- * @author ???
- * @version ???
+ * @author Luke Howard
+ * @version 1.0
  */
 
 /*
@@ -107,6 +107,8 @@ public class Card {
 	 */
 	public boolean setValue(int value) {
 		if (value < 1 || value > 13) {
+			System.out.println("Error: Invalid Input");
+			System.exit(1);
 			return false;
 		}
 		this.value = value;
@@ -129,6 +131,8 @@ public class Card {
 			this.suit = suit;
 			return true;
 		}
+		System.out.println("Error: Invalid Input");
+		System.exit(1);
 		return false;
 	}
 
@@ -149,6 +153,8 @@ public class Card {
 			this.value = value;
 			return true;
 		}
+		System.out.println("Error: Invalid Input");
+		System.exit(1);
 		return false;
 	}
 
