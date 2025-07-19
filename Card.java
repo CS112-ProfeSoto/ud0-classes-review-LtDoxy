@@ -79,7 +79,17 @@ public class Card {
 	 *              spade, or club)
 	 */
 	public Card(int value, char suit) {
-		setAll(value, suit);
+		boolean isValid;
+
+		isValid = ((value >= 1 && value <= 13) && (suit == HEART || suit == DIAMOND || suit == CLUB || suit == SPADE));
+
+		if (!isValid) {
+			System.out.println("Error: Invalid Input for Card class");
+			System.exit(0);
+		}
+		else {
+			setAll(value, suit);
+		}
 	}
 
 
@@ -90,7 +100,14 @@ public class Card {
 	 * @param original Card object to be copied
 	 */
 	public Card(Card original) {
-		setAll(original.getValue(), original.getSuit());
+		if(original != null) {
+			setAll(original.getValue(), original.getSuit());
+		}
+		else {
+			System.out.println("Error: Null Input");
+			System.exit(0);
+		}
+
 	}
 
 
@@ -107,8 +124,6 @@ public class Card {
 	 */
 	public boolean setValue(int value) {
 		if (value < 1 || value > 13) {
-			System.out.println("Error: Invalid Input");
-			System.exit(1);
 			return false;
 		}
 		this.value = value;
@@ -131,8 +146,6 @@ public class Card {
 			this.suit = suit;
 			return true;
 		}
-		System.out.println("Error: Invalid Input");
-		System.exit(1);
 		return false;
 	}
 
@@ -153,8 +166,6 @@ public class Card {
 			this.value = value;
 			return true;
 		}
-		System.out.println("Error: Invalid Input");
-		System.exit(1);
 		return false;
 	}
 
